@@ -1,0 +1,372 @@
+/* --- Variables de Diseño Profesional --- */
+:root {
+    --bg-header: #2d2d2d;
+    --bg-sidebar: #252526;
+    --bg-main: #1e1e1e;
+    --bg-tab-inactive: #2d2d2d;
+    --bg-tab-hover: #2a2d2e;
+    --border-color: #3e3e42;
+    --text-main: #cccccc;
+    --text-light: #ffffff;
+    --text-muted: #888888;
+    --accent-blue: #007acc;
+    --input-bg: #3c3c3c;
+    --preview-bg: #ffffff; /* Fondo blanco por defecto para la web renderizada */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    overflow: hidden;
+    font-size: 13px;
+}
+
+/* --- HEADER --- */
+.app-header {
+    height: 50px;
+    background-color: var(--bg-header);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    flex-shrink: 0;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Imagen solicitada por el usuario */
+.logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.logo-text-main {
+    color: var(--text-light);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.logo-text-sub {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+/* Controles de Vista (Editor / Móvil / PC) */
+.view-toggles {
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: var(--bg-sidebar);
+}
+
+.view-toggles button {
+    background-color: transparent;
+    color: var(--text-main);
+    border: none;
+    padding: 6px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 600;
+    outline: none;
+    transition: all 0.2s;
+    border-right: 1px solid var(--border-color);
+}
+
+.view-toggles button:last-child {
+    border-right: none;
+}
+
+.view-toggles button:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.view-toggles button.active {
+    background-color: var(--accent-blue);
+    color: var(--text-light);
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.main-container {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 50px);
+    position: relative;
+}
+
+/* --- BARRA LATERAL (EXPLORADOR) --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid transparent;
+}
+
+.sidebar-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+}
+
+.sidebar-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.icon-btn:hover {
+    color: var(--text-light);
+    background-color: rgba(255,255,255,0.1);
+}
+
+.icon-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* Input para crear archivos/carpetas */
+.new-item-input-container {
+    padding: 5px 15px 10px 15px;
+    display: none;
+}
+
+.new-item-input {
+    width: 100%;
+    background-color: var(--input-bg);
+    border: 1px solid var(--accent-blue);
+    color: var(--text-light);
+    padding: 6px 8px;
+    font-size: 13px;
+    outline: none;
+    border-radius: 2px;
+}
+
+.file-tree {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 5px 0;
+}
+
+.tree-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 15px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tree-item:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
+.tree-item.active {
+    background-color: rgba(0, 122, 204, 0.3);
+    color: var(--text-light);
+}
+
+.tree-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+.tree-icon.folder { fill: #dcb67a; } /* Color de carpeta estilo profesional */
+.tree-icon.file { fill: var(--text-main); }
+
+/* --- ÁREA CENTRAL (EDITOR Y VISTA PREVIA) --- */
+.content-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-main);
+    position: relative;
+}
+
+/* Pestañas del Editor */
+.tabs-bar {
+    height: 35px;
+    background-color: var(--bg-sidebar);
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 15px;
+    background-color: var(--bg-tab-inactive);
+    color: var(--text-muted);
+    border-right: 1px solid var(--border-color);
+    cursor: pointer;
+    min-width: 120px;
+    justify-content: space-between;
+}
+
+.tab.active {
+    background-color: var(--bg-main);
+    color: var(--accent-blue);
+    border-top: 2px solid var(--accent-blue);
+    padding-top: -2px;
+}
+
+.tab-close {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    border-radius: 3px;
+}
+
+.tab:hover .tab-close, .tab.active .tab-close {
+    opacity: 1;
+}
+
+.tab-close:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: var(--text-light);
+}
+
+.tab-close svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+}
+
+/* Editor de Código */
+.editor-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.editor-textarea {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: #d4d4d4;
+    padding: 15px;
+    resize: none;
+    outline: none;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    tab-size: 4;
+}
+
+/* --- MOTOR DE VISTA PREVIA (PC / MÓVIL) --- */
+.preview-container {
+    flex-grow: 1;
+    display: none; /* Oculto por defecto, se muestra por JS */
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1a1a;
+    background-image: radial-gradient(#333 1px, transparent 0);
+    background-size: 20px 20px;
+    overflow: auto;
+    padding: 20px;
+}
+
+/* Contenedor del Iframe (Simula la pantalla) */
+.device-frame {
+    background-color: var(--preview-bg);
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo Móvil */
+.device-frame.mode-movil {
+    width: 375px;
+    height: 667px;
+    border: 12px solid #222;
+    border-radius: 30px;
+    overflow: hidden; /* Para que el iframe respete el borde redondeado */
+}
+
+/* Estilo PC (Pantalla completa) */
+.device-frame.mode-pc {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+/* El Iframe real que carga la web/juego */
+.preview-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    display: block; /* Evita márgenes fantasma */
+}
+
+/* Controles de Visualización (Alternar entre Editor y Previa) */
+.show-editor .editor-container { display: flex; }
+.show-editor .preview-container { display: none; }
+
+.show-preview .editor-container { display: none; }
+.show-preview .preview-container { display: flex; }
+
+.empty-state {
+    color: var(--text-muted);
+    text-align: center;
+    padding-top: 50px;
+    font-size: 14px;
+    user-select: none;
+}
